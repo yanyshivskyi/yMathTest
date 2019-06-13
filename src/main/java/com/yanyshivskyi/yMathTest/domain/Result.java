@@ -24,6 +24,8 @@ public class Result {
 
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date myDate;
-    private Integer number_try;
+
+    @Column(name="number_try")
+    private Integer numberTry;
 
 }

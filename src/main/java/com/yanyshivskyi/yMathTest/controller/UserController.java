@@ -25,7 +25,6 @@ public class UserController {
     @GetMapping
     public String userList(Model model) {
         model.addAttribute("users", userRepo.findAll());
-
         return "userList";
     }
 
@@ -44,7 +43,6 @@ public class UserController {
             @RequestParam(value = "us_id") User user
     ) {
         user.setUsername(username);
-
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
                 .collect(Collectors.toSet());

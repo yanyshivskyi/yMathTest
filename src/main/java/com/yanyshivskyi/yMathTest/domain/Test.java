@@ -1,10 +1,6 @@
 package com.yanyshivskyi.yMathTest.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.sql.Time;
+import javax.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Test {
@@ -18,14 +14,15 @@ public class Test {
 
     private String name;
     private String description;
-    private Time time;
-    private Integer count_try;
+    private String time;
+    @Column (name="count_try")
+    private Integer countTry;
 
-    public Test(String name, String description, Time time, Integer count_try) {
+    public Test(String name, String description, String time, Integer count_try) {
         this.name = name;
         this.description = description;
         this.time = time;
-        this.count_try = count_try;
+        this.countTry = count_try;
     }
 
     public Long getId() {
@@ -52,19 +49,19 @@ public class Test {
         this.description = description;
     }
 
-    public Time getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public Integer getCount_try() {
-        return count_try;
+    public Integer getCountTry() {
+        return countTry;
     }
 
-    public void setCount_try(Integer count_try) {
-        this.count_try = count_try;
+    public void setCountTry(Integer countTry) {
+        this.countTry = countTry;
     }
 }

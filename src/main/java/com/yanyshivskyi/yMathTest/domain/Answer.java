@@ -14,14 +14,15 @@ public class Answer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_question")
     private Question question;
-    private String answer_text;
+
+    @Column(name="answer_text")
+    private String answerText;
     private Boolean isCorrect;
     private String conformity;
 
-    public Answer(Long id, Question question, String answer_text, Boolean isCorrect, String conformity) {
-        this.id = id;
+    public Answer(Question question, String answerText, Boolean isCorrect, String conformity) {
         this.question = question;
-        this.answer_text = answer_text;
+        this.answerText = answerText;
         this.isCorrect = isCorrect;
         this.conformity = conformity;
     }
@@ -42,16 +43,17 @@ public class Answer {
         this.question = question;
     }
 
-    public String getAnswer_text() {
-        return answer_text;
+    public String getAnswerText() {
+        return answerText;
     }
 
-    public void setAnswer_text(String answer_text) {
-        this.answer_text = answer_text;
+    public void setAnswerText(String answerText) {
+        this.answerText = answerText;
     }
 
-    public Boolean getCorrect() {
-        return isCorrect;
+    public String getCorrect() {
+        if(isCorrect) return "1";
+        else return "0";
     }
 
     public void setCorrect(Boolean correct) {

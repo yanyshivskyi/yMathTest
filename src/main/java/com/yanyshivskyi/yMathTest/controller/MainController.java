@@ -1,22 +1,28 @@
 package com.yanyshivskyi.yMathTest.controller;
 
+import com.yanyshivskyi.yMathTest.domain.Question;
+import com.yanyshivskyi.yMathTest.domain.Test;
+import com.yanyshivskyi.yMathTest.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 @Controller
 public class MainController {
-  //  @Autowired
-  //  private SimpleAnswerRepo answerRepo;
+    @Autowired
+    private TestService testService;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -34,6 +40,15 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(@RequestParam(required=false, defaultValue = "") String filter, Map<String, Object> model) {
+        List<Test> tests = testService.findAll();
+        model.put("tests", tests);
+        int[] count_qq=new int[tests.size()];
+        int j=0;
+        for(Test i:tests){
+            count_qq[j] = testService.countQuestion(i.getId());
+            j++;
+        }
+        model.put("count_q", count_qq);
      /*   Iterable<SimpleAnswer> t_in =answerRepo.findAll();
         if (filter!=null && !filter.isEmpty()) {
             t_in = answerRepo.findByQuestion(filter);
@@ -75,4 +90,6 @@ public class MainController {
         return "main";
     }
 
+
 }
+

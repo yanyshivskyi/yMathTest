@@ -15,7 +15,29 @@ public class User implements UserDetails {
     private Long id;
     private String username;
     private String password;
+    private String groupst;
+    private String stfio;
     private boolean active;
+
+
+    public String getStfio() {
+        return stfio;
+    }
+
+    public void setStfio(String stfio) {
+        this.stfio = stfio;
+    }
+
+
+
+    public String getGroupst() {
+        return groupst;
+    }
+
+    public void setGroupst(String groupst) {
+        this.groupst = groupst;
+    }
+
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn (name= "user_id"))

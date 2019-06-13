@@ -3,5 +3,5 @@
 
 <@c.page>
 Сторінка входу
-<@l.login "/login" false />
+<@l.login "/login"/>
 </@c.page>

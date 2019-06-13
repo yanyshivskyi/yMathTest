@@ -1,6 +1,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
+
 <h5>3. В прямокутному трикутнику a=3, b=5. с=?</h5>
 <img src="/img/123.jpg" class="img-fluid" alt="Responsive image">
 <div class="form-check">
@@ -70,8 +71,9 @@
 <div class="form-check">
     <input class="form-check-input position-static" type="checkbox" id="blankCheckbox6" value="option1" aria-label="...">
     <label class="form-check-label" for="exampleRadios1">
-        3
     </label>
-</div>
+    3
+  </div>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dpi{120}\bg_white\fn_cs&\small1^{3}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dpi{120}\bg_white\fn_cs\small1^{3}" title="\small 1^{3}" /></a>
 
 </@c.page>
