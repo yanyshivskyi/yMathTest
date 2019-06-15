@@ -2,7 +2,10 @@ package com.yanyshivskyi.yMathTest.controller;
 
 import com.yanyshivskyi.yMathTest.domain.Answer;
 import com.yanyshivskyi.yMathTest.domain.Question;
+import com.yanyshivskyi.yMathTest.domain.Result;
+import com.yanyshivskyi.yMathTest.domain.Test;
 import com.yanyshivskyi.yMathTest.service.CompleteTestService;
+import net.bytebuddy.description.method.ParameterList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,8 @@ import java.util.*;
 public class CompleteTestController {
     @Autowired
     private CompleteTestService cTestService;
+
+    private Long id_test;
 
 
     @GetMapping("test/{id}")
@@ -30,17 +35,35 @@ public class CompleteTestController {
 
         model.addAttribute("quests", list);
         model.addAttribute("answers", all);
+        id_test=id;
 
         return "testId";
     }
 
 
-    @RequestMapping(value = "/test/{id}", method = RequestMethod.POST)
-    public String compllTes1(@RequestParam String mystr) {
-        System.out.println(mystr);
+    @PostMapping("/test/{id}")
+    public String compllTes1(@RequestParam String mystr, @RequestParam Float fpoint) {
+        System.out.println(id_test);
+        System.out.println(fpoint);
+        cTestService.saveResult(id_test, mystr, fpoint);
         return "redirect:/main";
     }
 
+    @GetMapping("/result")
+    public String test(Model model) {
+        List<Result> listRes= cTestService.findResults();
+        model.addAttribute("results", listRes);
+
+
+        List<Float> maxPoint=new ArrayList<>();
+
+        for(Result res:listRes){
+            maxPoint.add(cTestService.getPoint(res.getTest()));
+        }
+        model.addAttribute("maxPoint", maxPoint);
+
+        return "result";
+    }
 
 }
 

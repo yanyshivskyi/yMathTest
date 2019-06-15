@@ -1,9 +1,13 @@
+<#import "parts/security.ftl" as sc>
 <#import "parts/common.ftl" as c>
+
+
 <@c.page>
     <div class="myclass2">
     <#list answers as answer>
     Питання ${answer?index + 1}. ${quests[answer?index].questionText} <br>
         <input type="hidden" class="myclass1" form="endtest" id="typeq_${answer?index}" value="${quests[answer?index].getType()}" />
+        <input type="hidden" class="myclass1" form="endtest" id="point_${answer?index}" value="${quests[answer?index].countPoint}" />
             <#list answer as ans>
 
 
@@ -41,8 +45,9 @@
 
 <form id="endtest" action="/test/{id}" role="form" enctype="multipart/form-data" target="iframe1" method="post">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-    <input type="hidden" name="mystr" id="mystrr" value="azz"/>
-    <button class="btn btn-primary mb-3" type="submit">Завершити тест</button>
+    <input type="hidden" name="mystr" id="mystrr" value="${sc.name}"/>
+    <input type="hidden" name="fpoint" id="flpoint" value=""/>
+    <button class="btn btn-primary mb-3" id="enterTest" type="submit">Завершити тест</button>
 </form>
 
 <iframe name="iframe1" style="position: absolute; display:none"></iframe>

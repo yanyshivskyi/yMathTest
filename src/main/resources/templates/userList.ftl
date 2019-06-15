@@ -11,6 +11,7 @@
     <thead>
     <tr>
         <th>Логін</th>
+        <th>ПІБ</th>
         <th>Група</th>
         <th>Ролі</th>
         <th></th>
@@ -21,6 +22,7 @@
     <#if user.username!='admin'>
     <tr>
         <td>${user.username}</td>
+        <td>${user.stfio}</td>
         <td>${user.groupst}</td>
         <td><#list user.roles as role>${role}<#sep>, </#list></td>
         <td><a href="/user/${user.id}">Редагувати</a></td>

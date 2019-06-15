@@ -32,11 +32,6 @@ public class MainController {
         return "greeting";
     }
 
-    @GetMapping("/test")
-    public String test(Map<String, Object> model) {
-        return "test";
-    }
-
 
     @GetMapping("/main")
     public String main(@RequestParam(required=false, defaultValue = "") String filter, Map<String, Object> model) {
