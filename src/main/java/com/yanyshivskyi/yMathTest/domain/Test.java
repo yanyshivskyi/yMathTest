@@ -1,8 +1,11 @@
 package com.yanyshivskyi.yMathTest.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
+// This tells Hibernate to make a table out of this class
 public class Test {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -12,9 +15,12 @@ public class Test {
 
     }
 
+    @NotBlank(message="Назва теста не може бути пустою!")
     private String name;
     private String description;
     private String time;
+
+    @Min(value = 0, message = "Мінімальне значення - 0")
     @Column (name="count_try")
     private Integer countTry;
 

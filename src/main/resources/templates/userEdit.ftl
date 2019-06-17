@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-User editor
+Редагування прав користувача
 
 <form action="/user" method="post">
     <input type="text" name="username" value="${user.username}" readonly>
@@ -12,6 +12,6 @@ User editor
 </#list>
 <input type="hidden" value="${user.id}" name="us_id">
 <input type="hidden" value="${_csrf.token}" name="_csrf">
-<button type="submit">Зберегти</button>
+<button class="btn btn-primary" type="submit">Зберегти</button>
 </form>
 </@c.page>

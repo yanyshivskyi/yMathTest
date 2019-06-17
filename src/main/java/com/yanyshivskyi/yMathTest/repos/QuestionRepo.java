@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface QuestionRepo extends JpaRepository<Question, Long> {
         Question findByQuestionText(String text);
-        List<Question> findByIdTest(Optional<Test> test);
+
+        List<Question> findByIdTest(Optional<Test> all);
 }

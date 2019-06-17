@@ -8,10 +8,6 @@ public class Question {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    public Question() {
-
-    }
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_test")
     private Test idTest;
@@ -26,9 +22,11 @@ public class Question {
 
     private String type;
 
+    public Question() {
+
+    }
     public Question(Test idTest, String questionText,
-                    String filename1, String filename2, Float count_point,
-                    String type) {
+                    String filename1, String filename2, Float count_point, String type) {
         this.idTest = idTest;
         this.questionText = questionText;
         this.filename1 = filename1;

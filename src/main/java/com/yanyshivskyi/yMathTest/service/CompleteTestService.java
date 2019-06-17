@@ -1,20 +1,19 @@
 package com.yanyshivskyi.yMathTest.service;
 
-import com.yanyshivskyi.yMathTest.domain.Answer;
-import com.yanyshivskyi.yMathTest.domain.Question;
-import com.yanyshivskyi.yMathTest.domain.Result;
-import com.yanyshivskyi.yMathTest.domain.Test;
+import com.yanyshivskyi.yMathTest.domain.*;
 import com.yanyshivskyi.yMathTest.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CompleteTestService {
+public class CompleteTestService implements Serializable {
     @Autowired
     private TestRepo testRepo;
 
@@ -84,7 +83,7 @@ public class CompleteTestService {
     }
 
     public List<Result> findResults() {
-       return resultr.findAll();
+       return resultr.findAllByOrderByIdDesc();
     }
 
     public float getPoint(Test test) {
@@ -96,5 +95,45 @@ public class CompleteTestService {
             }
         }
         return point;
+    }
+
+    public List<Result> findResultsT(String filter1) {
+        List<Test> ts=testRepo.findByNameContainingIgnoreCase(filter1);
+        return resultr.findByTestInOrderByIdDesc(ts);
+    }
+
+    public List<Result> findResultsU(String filter2) {
+        List<User> us=userr.findByUsernameContainingIgnoreCase(filter2);
+        return resultr.findByUserInOrderByIdDesc(us);
+    }
+
+
+    public List<Result> findResultsG(String filter3) {
+        List<User> us=userr.findByGroupstContainingIgnoreCase(filter3);
+        return resultr.findByUserInOrderByIdDesc(us);
+    }
+
+
+    public List<Result> findResultsTU(String filter1, String filter2) {
+        List<Test> ts=testRepo.findByNameContainingIgnoreCase(filter1);
+        List<User> us=userr.findByUsernameContainingIgnoreCase(filter2);
+        return resultr.findByTestInAndUserInOrderByIdDesc(ts, us);
+    }
+
+    public List<Result> findResultsTG(String filter1, String filter3) {
+        List<Test> ts=testRepo.findByNameContainingIgnoreCase(filter1);
+        List<User> us=userr.findByGroupstContainingIgnoreCase(filter3);
+        return resultr.findByTestInAndUserInOrderByIdDesc(ts, us);
+    }
+
+    public List<Result> findResultsUG(String filter2, String filter3) {
+        List<User> us=userr.findByUsernameContainingIgnoreCaseAndGroupstContainingIgnoreCase(filter2, filter3);
+        return resultr.findByUserInOrderByIdDesc(us);
+    }
+
+    public List<Result> findResultsTUG(String filter1, String filter2, String filter3) {
+        List<Test> ts=testRepo.findByNameContainingIgnoreCase(filter1);
+        List<User> us=userr.findByUsernameContainingIgnoreCaseAndGroupstContainingIgnoreCase(filter2, filter3);
+        return resultr.findByTestInAndUserInOrderByIdDesc(ts, us);
     }
 }

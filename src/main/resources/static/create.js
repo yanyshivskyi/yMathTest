@@ -1,10 +1,10 @@
 //ограничиваем весь код в одной области видимости
+
         (() => {
             //скрытие невыбранных типов ответов
             $('#answerTest-1').hide();
         $('#answerTest-2').hide();
         $('#answerTest-3').hide();
-        $('#img2').hide();
         //номер текущего вопроса
         let curAsk = 0; //
         //выбранный тип ответов
@@ -56,7 +56,7 @@
 
                     </label>
                     <div class="col col-4">
-                        <input type="text" class="form-control" id="d1-${curAsk}-${curAnsNumb}" name="canswer" placeholder="Введіть відповідь">
+                        <input type="text" class="form-control" id="d1-${curAsk}-${curAnsNumb}" name="canswer" placeholder="Введіть відповідь" required>
                     </div>
                     <div class="col col-1 ml-4">
                         <button type="button" class="btn btn-danger del-ans">Видалити</button>
@@ -71,7 +71,7 @@
                         <input class="form-check-input" type="checkbox" name="canswercor" id="ch-${curAsk}-${curAnsNumb}" value="${curAnsNumb}" ${curAnsNumb==0 ? 'checked' :''} >
                     </label>
                     <div class="col col-4">
-                        <input type="text" class="form-control" id="d2-${curAsk}-${curAnsNumb}" name="canswer" placeholder="Введіть відповідь">
+                        <input type="text" class="form-control" id="d2-${curAsk}-${curAnsNumb}" name="canswer" placeholder="Введіть відповідь" required>
                     </div>
                     <div class="col col-1 ml-4">
                         <button type="button" class="btn btn-danger del-ans">Видалити</button>
@@ -83,7 +83,7 @@
                     block = `
                 <div class="row my-3 justify-content-start">
                         <div class="col col-8">
-                            <input type="text" class="form-control" id="onl-${curAsk}" name ="canswer" placeholder="Введіть відповідь">
+                            <input type="text" class="form-control" id="onl-${curAsk}" name ="canswer" placeholder="Введіть відповідь" required>
                         </div>
                     </div>`;
                     break;
@@ -188,6 +188,7 @@
                                      fieldset.attr('id', 'ask-' + curAsk);
                                      fieldset.appendTo('.chg-area');
                                      $(`#ask-${curAsk} #testnametc`).val("");
+                                     $(`#ask-${curAsk} #countpp`).val("1");
                          }, 0);
 
             setTimeout(function () {
@@ -224,7 +225,7 @@
           $(`#nameTest`).append(block);
           }
 
-          alert("Тест создан!");
+        //  alert("Тест создан!");
         });
 
 

@@ -2,5 +2,6 @@
 
 <@c.page>
 <h5>Привіт, Гість</h5>
-This is a simple page
+    $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$
+
 </@c.page>

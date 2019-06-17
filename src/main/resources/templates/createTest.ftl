@@ -3,20 +3,34 @@
 <@c.page>
 <form id="nameTest" action="/create" role="form" enctype="multipart/form-data" method="post">
 
+    <a href="http://hijos.ru/nabor-formul-v-latex/">Введення формул в Latex</a>
     <h4>Тест</h4>
 
     <div class="row my-3 justify-content-start">
         <div class="col col-1 col-form-label">Назва:</div>
-        <div class="col col-4"><input type="text" class="form-control" id="testname" name="textTest"
-                                      placeholder="Введіть назву теста"></div>
+
+        <div class="col col-4">
+            <input type="text" class="form-control ${(nameError??)?string('is-invalid', '')}"
+                   id="testname" name="name" placeholder="Введіть назву теста"
+                   value="<#if test??>${test.name}</#if>">
+            <#if nameError??>
+            <div class="invalid-feedback">
+                ${nameError}
+            </div>
+            </#if>
+        </div>
+
         <div class="col col-2 col-form-label offset-md-1">Ліміт часу:</div>
-        <div class="col col-2"><input type="time" value="00:15" min="00:00" max="03:00" class="form-control" name="lim_time" id="limit_time"></div>
+        <div class="col col-2"><input type="time" value="00:15" min="00:00" max="03:00" class="form-control" name="time" id="limit_time"></div>
         <div class="w-100 mb-3"></div>
         <div class="col col-1 col-form-label">Опис:</div>
-        <div class="col col-4"><input type="text" class="form-control" id="description" name="descrip"
+        <div class="col col-4"><input type="text" class="form-control" id="description" name="description"
                                       placeholder="Введіть опис теста"></div>
         <div class="col col-2 col-form-label offset-md-1">Кількість спроб:</div>
-        <div class="col col-2"><input type="text" class="form-control" name="count_tst" id="count_test"></div>
+        <div class="col col-2">
+            <input type="number" class="form-control ${(countTryError??)?string('is-invalid', '')}" name="countTry" min="0" id="count_test" data-toggle="tooltip" data-placement="top" title="0-Необмежена кількість спроб" required>
+        </div>
+
         <div class="w-100 mb-5"></div>
     </div>
 
@@ -26,6 +40,7 @@
         </div>
         <button type="button" class="btn btn-info" id="add-ask">Додати питання</button>
     </div>
+
     <div class="chg-area">
         <fieldset id="ask-0">
             <h4>Питання №<b class="ask-num">1</b></h4>
@@ -41,11 +56,13 @@
                 </div>
                 <div class="w-100 mb-2"></div>
                 <div class="col col-1 col-form-label">Запитання:</div>
-                <div class="col col-4"><input type="text" name="cquest" class="form-control" id="testnametc" placeholder="Введіть запитання"></div>
+                <div class="col col-7"><input type="text" name="cquest" class="form-control" id="testnametc" placeholder="Введіть запитання"></div>
+                <div class="col col-1 ">Кількість балів:</div>
+                <div class="col col-1"><input type="text" name="countPoint" class="form-control" id="countpp" placeholder="Кількість балів" value="1"></div>
                 <div class="w-100 mb-3"></div>
-                <div class="col col-4" id="img1"><input type="file"></div>
+                <div class="col col-4" id="img1" ><input type="file" name="filename1"></div>
                 <div class="w-100 mb-1"></div>
-                <div class="col col-4" id="img2"><input type="file" id="file"></div>
+                <div class="col col-4" id="img2" ><input type="file" name="filename2" id="file"></div>
             </div>
 
             <h4>Відповіді </h4>
@@ -60,7 +77,7 @@
                             <input class="form-check-input" type="radio" id="r-0-0" name="rg-0" value="0" checked>
                         </label>
                         <div class="col col-4">
-                            <input type="text" class="form-control" id="d1-0-0" name="canswer" placeholder="Введіть відповідь">
+                            <input type="text" class="form-control" id="d1-0-0" name="canswer" placeholder="Введіть відповідь" required>
                         </div>
                         <div class="col col-1 ml-4">
                             <button type="button" class="btn btn-danger del-ans">Видалити</button>
@@ -69,8 +86,8 @@
                 </div>
 
                 <div id="answerTest-1" class="ans-area ans-area-1">
-                    <div class="d-flex flex-row-reverse">
-                        <button type="button" class="btn btn-secondary add-ans">+</button>
+                    <div class="d-flex flex-row-reverse mr-5">
+                        <button type="button" class="btn btn-success add-ans">+</button>
                     </div>
                 </div>
 
@@ -78,8 +95,8 @@
                 </div>
 
                 <div id="answerTest-3" class="ans-area ans-area-3">
-                    <div class="d-flex flex-row-reverse">
-                        <button type="button" class="btn btn-secondary add-ans">+</button>
+                    <div class="d-flex flex-row-reverse mr-5">
+                        <button type="button" class="btn btn-success add-ans">+</button>
                     </div>
                 </div>
             </div>
@@ -93,8 +110,7 @@
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
 
 </form>
+
 <script src="/static/create.js"></script>
+
 </@c.page>
-
-
-

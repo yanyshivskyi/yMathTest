@@ -1,10 +1,7 @@
 package com.yanyshivskyi.yMathTest.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Optional;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Result {
@@ -15,7 +12,7 @@ public class Result {
     public Result() {
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_user")
     private User user;
 

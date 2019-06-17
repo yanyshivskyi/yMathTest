@@ -1,20 +1,23 @@
 package com.yanyshivskyi.yMathTest.service;
 
-import com.yanyshivskyi.yMathTest.domain.Answer;
-import com.yanyshivskyi.yMathTest.domain.Question;
-import com.yanyshivskyi.yMathTest.domain.Test;
+import com.yanyshivskyi.yMathTest.domain.*;
 import com.yanyshivskyi.yMathTest.repos.AnswerRepo;
 import com.yanyshivskyi.yMathTest.repos.QuestionRepo;
+import com.yanyshivskyi.yMathTest.repos.ResultRepo;
 import com.yanyshivskyi.yMathTest.repos.TestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TestService {
@@ -27,9 +30,15 @@ public class TestService {
     @Autowired
     private AnswerRepo answerr;
 
+    @Autowired
+    private ResultRepo resr;
 
-    public List<Test> findAll() {
-        return testRepo.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    @Value("${upload.path}")
+    private String uploadPath;
+
+
+    public Page<Test> findAll(Pageable pageable) {
+        return testRepo.findAll(pageable);
     }
 
     public int countQuestion(Long id) {
@@ -42,36 +51,49 @@ public class TestService {
         return count;
     }
 
-    public void createTest(String count_tst, String lim_time, String textTest, String descrip,
+    public void createTest(Test test,
                            String[] cquesttype, String[] cquest, String[] canswer, String canswer1,
-                           String[] canswercor) throws ParseException {
+                           String[] canswercor, MultipartFile[] filename1,MultipartFile[] filename2,
+                           Float[] countPoint) throws ParseException, IOException {
 
 
-        int foo; //количество попыток прохождения - count_tst
-        try {
-            foo = Integer.parseInt(count_tst);
-        }
-        catch (NumberFormatException e)
-        {
-            foo = 0;
-        }
-        SimpleDateFormat dateParser = new SimpleDateFormat("HH:mm");
-// Parsing the date
-        Date date = dateParser.parse(lim_time);
-// Format for output
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("HH:mm:ss");
-        Test t= new Test(textTest, descrip, dateFormatter.format(date), foo);
-        testRepo.save(t);
-
+        testRepo.save(test);
+        System.out.println("QWERTY" + cquesttype[0]);
         int j=0; // счетчик 1 правильный ответ
         int curj=0; //текущий правильный ответ
         int questTypeTrue=0; //номер вопроса с 1м правильным ответом
         int idTrueQuest=0; //множественный варианты счетчик
         Answer answ;
         Question quest;
+        String resultFileName1="";
+        String resultFileName2="";
 
         for(int i=0; i<cquesttype.length;i++) {
-            quest = new Question(t, cquest[i], "", "", (float) 1, cquesttype[i]);
+            if (filename1[i] !=null && !filename1[i].getOriginalFilename().isEmpty()) {
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+
+                String uuidFile = UUID.randomUUID().toString();
+                resultFileName1 = uuidFile + "." + filename1[i].getOriginalFilename();
+                filename1[i].transferTo(new File(uploadPath + "/" + resultFileName1));
+            }
+
+                if (filename2[i] !=null && !filename2[i].getOriginalFilename().isEmpty()) {
+                    File uploadDir2 = new File(uploadPath);
+                    if (!uploadDir2.exists()) {
+                        uploadDir2.mkdir();
+                    }
+
+                    String uuidFile2 = UUID.randomUUID().toString();
+                    resultFileName2 = uuidFile2 + "." + filename2[i].getOriginalFilename();
+                    filename2[i].transferTo(new File(uploadPath + "/" + resultFileName2));
+                }
+
+            if(countPoint[i]<0 ||countPoint[i].isNaN() || countPoint[i]==null) countPoint[i]= Float.valueOf(1);
+
+            quest = new Question(test, cquest[i], resultFileName1, resultFileName2, countPoint[i], cquesttype[i]);
             questr.save(quest);
             if (cquesttype[i].equals("0")) {
                 curj = 0;
@@ -126,5 +148,20 @@ public class TestService {
             if(canswercor[idTrueQuest].equals("**/**")) idTrueQuest++;
         }
 
+    }
+
+    public Page<Test> findTest(String filter, Pageable pageable) {
+        return testRepo.findByNameContainingIgnoreCase(filter, pageable);
+    }
+
+    public int countTry(Test test, User user) {
+        int count=0;
+        if (test.getCountTry()==0) return -1;
+        Optional<Result> rs = resr.findByTestAndUser(test, user);
+        if(rs.isPresent()) {
+            count = rs.get().getNumberTry();
+        }
+        else count = test.getCountTry();
+        return count;
     }
 }
