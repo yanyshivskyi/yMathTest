@@ -36,6 +36,9 @@ public class TestService {
     @Value("${upload.path}")
     private String uploadPath;
 
+    public Test findTestID(Long f){
+        return testRepo.findById(f).get();
+    }
 
     public Page<Test> findAll(Pageable pageable) {
         return testRepo.findAll(pageable);

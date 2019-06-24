@@ -1,6 +1,6 @@
 package com.yanyshivskyi.yMathTest.domain;
 
-import javax.persistence.*;
+        import javax.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Question {

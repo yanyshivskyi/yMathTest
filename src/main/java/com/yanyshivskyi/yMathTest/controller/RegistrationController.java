@@ -2,7 +2,6 @@ package com.yanyshivskyi.yMathTest.controller;
 
 import com.yanyshivskyi.yMathTest.domain.Role;
 import com.yanyshivskyi.yMathTest.domain.User;
-import com.yanyshivskyi.yMathTest.repos.UserRepo;
 import com.yanyshivskyi.yMathTest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

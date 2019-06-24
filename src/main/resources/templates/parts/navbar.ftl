@@ -1,7 +1,7 @@
 <#include "security.ftl">
 <#import "login.ftl" as l>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">yTest</a>
+    <a class="navbar-brand" href="/">  <img src="/img/45.png" alt="Logo" width="55px"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

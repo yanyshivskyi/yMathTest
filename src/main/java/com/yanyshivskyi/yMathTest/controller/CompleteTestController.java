@@ -5,6 +5,7 @@ import com.yanyshivskyi.yMathTest.domain.Question;
 import com.yanyshivskyi.yMathTest.domain.Result;
 import com.yanyshivskyi.yMathTest.service.CompleteTestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.*;
 
 
 @Controller
+@PreAuthorize("hasAuthority('USER')")
 public class CompleteTestController {
     @Autowired
     private CompleteTestService cTestService;

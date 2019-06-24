@@ -3,7 +3,6 @@ package com.yanyshivskyi.yMathTest.repos;
 import com.yanyshivskyi.yMathTest.domain.Answer;
 import com.yanyshivskyi.yMathTest.domain.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

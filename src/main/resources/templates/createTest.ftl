@@ -56,7 +56,7 @@
                 </div>
                 <div class="w-100 mb-2"></div>
                 <div class="col col-1 col-form-label">Запитання:</div>
-                <div class="col col-7"><input type="text" name="cquest" class="form-control" id="testnametc" placeholder="Введіть запитання"></div>
+                <div class="col col-7"> <textarea name="cquest" row="3" class="form-control" id="testnametc"></textarea> </div>
                 <div class="col col-1 ">Кількість балів:</div>
                 <div class="col col-1"><input type="text" name="countPoint" class="form-control" id="countpp" placeholder="Кількість балів" value="1"></div>
                 <div class="w-100 mb-3"></div>

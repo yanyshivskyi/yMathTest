@@ -16,10 +16,11 @@
 
 <@p.pager url page/>
 
+<div class="row my-3 justify-content-start">
 <#list page.content as test>
 
-<div>
-    <div class="card w-75 mb-3">
+<div class="col col-5">
+    <div class="card w-100 mb-3">
         <div class="card-header">
             <h5>  ${test.name}</h5>
         </div>
@@ -39,16 +40,28 @@
                     <p class="card-text">Необмежена кількість спроб</p>
                     <a href="/test/${test.id}" class="btn btn-outline-secondary">Перейти до тесту</a>
              </#if>
+
     <#if count_g[test?index]==0>
     <p class="card-text">Всі спроби вичерпано</p>
-</#if>
-        </div>
+    </#if>
+                <@a.adm>
+                <a href="/edit/${test.id}" role="button" aria-pressed="true">Редагувати</a>
+                </@a.adm>
     </div>
 </div>
+</div>
+
+
+
+
+
 
 <#else>
     Тестів не знайдено
 </#list>
+</div>
+
+
 </@p.pager url page />
 
 </@c.page>

@@ -38,9 +38,9 @@
 
         <ul class="pagination">
             <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Елементів на сторінкці</a>
+                <a class="page-link" href="#" tabindex="-1">Елементів на сторінці</a>
             </li>
-            <#list [5, 10, 25] as c>
+            <#list [4, 10, 20, 40] as c>
             <#if c == page.getSize()>
             <li class="page-item active">
                 <a class="page-link" href="#" tabindex="-1">${c}</a>
